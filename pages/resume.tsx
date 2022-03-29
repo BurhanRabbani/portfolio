@@ -1,9 +1,6 @@
-import {
-  GetServerSidePropsContext,
-  GetStaticPropsContext,
-  NextPage,
-} from "next";
+import { GetStaticPropsContext, NextPage } from "next";
 import SkillLevelBar from "../components/SkillLevelBar";
+import { languages, tools } from "../data";
 import { ISkill } from "../type";
 import { motion } from "framer-motion";
 import { fadeInUp, routeAnimation } from "../animations";
@@ -73,11 +70,9 @@ const Resume: NextPage<{ languages: ISkill[]; tools: ISkill[] }> = ({
 
 export default Resume;
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const res = await fetch(`${process.env.VERCEL_URL}/api/lang-tools`);
-  const data = await res.json();
+export const getStaticProps = (context: GetStaticPropsContext) => {
+  const data = { languages, tools };
+
   return {
     props: data,
   };

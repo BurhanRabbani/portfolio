@@ -52,15 +52,8 @@ const Home: NextPage<{ services: IService[] }> = ({ services }) => {
 
 export default Home;
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const res = await fetch(`${process.env.VERCEL_URL}/api/services`);
-  const data = await res.json();
-
-  console.log("url: ", process.env.VERCEL_URL);
-
+export const getStaticProps = (context: GetStaticPropsContext) => {
   return {
-    props: { services: data.services },
+    props: { services },
   };
 };

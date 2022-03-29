@@ -2,13 +2,10 @@ import { useState } from "react";
 import ProjectCard from "../components/ProjectCard";
 import ProjectsNavbar from "../components/ProjectsNavbar";
 import { Category, IProject } from "../type";
+import { projects as projectData } from "../data";
 import { motion } from "framer-motion";
 import { fadeInUp, routeAnimation, stagger } from "../animations";
-import {
-  GetServerSidePropsContext,
-  GetStaticPropsContext,
-  NextPage,
-} from "next";
+import { GetStaticPropsContext, NextPage } from "next";
 const Projects: NextPage<{ projectsData: IProject[] }> = ({ projectsData }) => {
   const [projects, setProjects] = useState<IProject[]>(projectsData);
   const [active, setActive] = useState("all");
@@ -66,12 +63,8 @@ const Projects: NextPage<{ projectsData: IProject[] }> = ({ projectsData }) => {
 
 export default Projects;
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const res = await fetch(`${process.env.VERCEL_URL}/api/projects`);
-  const data = await res.json();
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
-    props: { projectsData: data.projects },
+    props: { projectsData: projectData },
   };
 };
