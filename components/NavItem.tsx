@@ -8,7 +8,7 @@ const NavItem: FC<{
   name: string;
 }> = ({ activeItem, setActiveItem, href, name }) => {
   return activeItem !== name ? (
-    <Link href={href}>
+    <Link scroll={false} href={href}>
       <a>
         <span
           className="hover:cursor-pointer hover:text-green"
